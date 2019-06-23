@@ -43,7 +43,7 @@ namespace SbzProfileSwitcherTray
         {
             if (e.Button == MouseButtons.Left)
             {
-                Process.Start("SBZ.exe", null);
+                switcherLib.SetNextProfile();
             }
         }
     }

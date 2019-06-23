@@ -14,6 +14,7 @@ namespace SbzProfileSwitcherCli
         private MalcolmControl malCtrl;
         private Config config;
         public string ConfigPath { get; set; }
+        private int currentIdxConfig = 0;
 
         public SwitcherLib(string configFile, bool useDefault)
         {
@@ -52,9 +53,22 @@ namespace SbzProfileSwitcherCli
             return config.Profiles.Select(i => i.ProfileName).ToArray();
         }
 
+        public void SetNextProfile()
+        {
+            if (currentIdxConfig + 1 >= config.Profiles.Length)
+            {
+                SetProfile(0);
+            }
+            else
+            {
+                SetProfile(currentIdxConfig + 1);
+            }
+        }
+
         public void SetProfile(int profileIdx)
         {
             Profile profile = config.Profiles[profileIdx];
+            currentIdxConfig = profileIdx;
 
             Func<MalcolmControlID, Object, Tuple<MalcolmControlID, Object>> tc = Tuple.Create;
 
